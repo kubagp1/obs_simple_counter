@@ -15,15 +15,30 @@ def http_server():
         httpd.serve_forever()
 
 def keyboard_handler():
+    try: # Set counter to 0 if there is no file
+            f = open("web/counter.txt", "r")
+    except Exception:
+        f = open("web/counter.txt", "w+")
+        f.write("0")
+    f.close()
+
     while True:
         keyboard.wait("p")
-        f = open("web/counter.txt", "r")
+
+        try:
+            f = open("web/counter.txt", "r")
+        except Exception:
+            f = open("web/counter.txt", "w+")
+
         data = f.read()
+
         try:
             x = int(data)
         except Exception:
             x = 0
+
         y = x + 1
+
         f.close()
 
         f = open("web/counter.txt", "w")
