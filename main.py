@@ -1,54 +1,45 @@
-import http.server
-import socketserver
+import eel
+import app
 
-from AutoHotPy import AutoHotPy
+eel.init('web')
 
-import threading
+app = app.App(eel)
 
-def http_server():
-    PORT = 80
+@eel.expose
+def getCounterValue():
+    print("getCounterValue triggered")
+    return app.counter
 
-    handler = http.server.SimpleHTTPRequestHandler
-
-    with socketserver.TCPServer(("", PORT), handler) as httpd:
-        print("Server started at localhost:" + str(PORT))
-        httpd.serve_forever()
-
+@eel.expose
 def add1():
-    try:
-        f = open("web/counter.txt", "r")
-    except Exception:
-        f = open("web/counter.txt", "w+")
+    print("add1 triggered")
+    app.add1()
 
-    data = f.read()
+@eel.expose
+def remove1():
+    print("remove1 triggered")
+    app.remove1()
 
-    try:
-        x = int(data)
-    except Exception:
-        x = 0
+@eel.expose
+def resetCounter():
+    print("resetCounter triggered")
+    app.resetCounter()
 
-    y = x + 1
+@eel.expose
+def checkKLThread():
+    print("checkKLThread triggered")
+    return app.threadKL.is_alive()
 
-    f.close()
+@eel.expose
+def stopKL():
+    print("stopKL triggered")
+    app.auto.stop()
 
-    f = open("web/counter.txt", "w")
-    f.write(str(y))
-    f.close()
+@eel.expose
+def startKL():
+    print("startKL triggered")
+    if not checkKLThread():
+        app.startKL()
 
-    print("+1")
 
-
-http_server_thread = threading.Thread(target=http_server)
-http_server_thread.start()
-
-try: # Set counter to 0 if there is no file
-            f = open("web/counter.txt", "r")
-    except Exception:
-        f = open("web/counter.txt", "w+")
-        f.write("0")
-    f.close()
-
-auto = AutoHotPy()
-auto.registerExit(auto.I, auto.stop)
-auto.registerForKeyDown(auto.P, add1)
-auto.start()
+eel.start('index.html', size=(400, 550))

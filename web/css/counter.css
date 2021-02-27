@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+img {
+    width: auto;
+    height: 300px;
+}
+
+#counter {
+    color: rgb(203,0,0);
+    font-size: 424px;
+    transform: translate(-10%, 3%);
+    font-family: 'Architects Daughter', cursive;
+    font-weight: bolder;
+}
