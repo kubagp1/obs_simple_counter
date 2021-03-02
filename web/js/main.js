@@ -63,3 +63,7 @@ klSwitch.addEventListener("click", async function(){
     await updateState()
     klSwitch.disabled = false;
 });
+
+changeLK.addEventListener("click", async function(){
+    listenedKey.innerText = await eel.changeLK()();
+});

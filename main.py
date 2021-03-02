@@ -1,5 +1,7 @@
 import eel
 import app
+import time
+import threading
 
 eel.init('web')
 
@@ -41,5 +43,10 @@ def startKL():
     if not checkKLThread():
         app.startKL()
 
+@eel.expose
+def changeLK():
+    print("stopKL triggered")
+    if not app.changingLK:
+        return app.changeListenedKey()
 
 eel.start('index.html', size=(400, 550))
