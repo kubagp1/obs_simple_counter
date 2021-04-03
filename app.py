@@ -70,7 +70,7 @@ class App:
 
         self.listenedKey = self.auto.keys[self.listenedKey.get_id()]
 
-        self.auto.registerForKeyDown(self.listenedKey, lambda a, b : self.add1() if self.isGameActive() else self.auto.P.press())
+        self.auto.registerForKeyDown(self.listenedKey, lambda a, b : self.add1() if self.isGameActive() else self.listenedKey.press())
         self.auto.start()
 
     def changeListenedKey(self):
